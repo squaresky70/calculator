@@ -21,9 +21,12 @@ def on_equal():
         result = eval(display.get())  # 화면에 적힌 수식을 계산
         display.delete(0, tk.END)  # 화면 지우기
         display.insert(tk.END, str(result))  # 계산 결과 보여주기
+    except ZeroDivisionError:
+        display.delete(0, tk.END)  # 화면 지우기
+        display.insert(tk.END, "Error")  # 0으로 나누면 Error 표시
     except Exception:
         display.delete(0, tk.END)  # 화면 지우기
-        display.insert(tk.END, "오류")  # 계산이 안 되면 오류 표시
+        display.insert(tk.END, "오류")  # 그 외 계산이 안 되면 오류 표시
 
 
 # "C" 버튼을 누르면 화면을 전부 지우는 함수
