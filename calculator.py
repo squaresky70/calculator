@@ -31,18 +31,22 @@ def on_click(text):
     display.insert(tk.END, text)
 
 
+# 수식 문자열을 계산해서 결과 문자열을 돌려주는 함수
+def calculate(expression):
+    try:
+        result = eval(expression)  # 수식을 계산
+        return str(result)
+    except ZeroDivisionError:
+        return "Error"  # 0으로 나누면 Error 표시
+    except Exception:
+        return "오류"  # 그 외 계산이 안 되면 오류 표시
+
+
 # "=" 버튼을 누르면 화면의 수식을 계산해서 결과를 보여주는 함수
 def on_equal():
-    try:
-        result = eval(display.get())  # 화면에 적힌 수식을 계산
-        display.delete(0, tk.END)  # 화면 지우기
-        display.insert(tk.END, str(result))  # 계산 결과 보여주기
-    except ZeroDivisionError:
-        display.delete(0, tk.END)  # 화면 지우기
-        display.insert(tk.END, "Error")  # 0으로 나누면 Error 표시
-    except Exception:
-        display.delete(0, tk.END)  # 화면 지우기
-        display.insert(tk.END, "오류")  # 그 외 계산이 안 되면 오류 표시
+    result = calculate(display.get())  # 화면에 적힌 수식을 계산
+    display.delete(0, tk.END)  # 화면 지우기
+    display.insert(tk.END, result)  # 계산 결과 보여주기
 
 
 # "C" 버튼을 누르면 화면을 전부 지우는 함수
