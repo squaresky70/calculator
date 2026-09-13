@@ -9,6 +9,12 @@ window.geometry("300x400")  # 창 크기 설정 (가로x세로)
 display = tk.Entry(window, justify="right", font=("Arial", 24))
 display.pack(fill="x", padx=10, pady=10)  # 가로로 꽉 채우고 여백 주기
 
+
+# 버튼을 누르면 결과 표시창에 글자를 이어서 넣는 함수
+def on_click(text):
+    display.insert(tk.END, text)
+
+
 # 버튼들을 담을 프레임(틀) 만들기
 button_frame = tk.Frame(window)
 button_frame.pack(fill="both", expand=True)
@@ -18,13 +24,20 @@ buttons = [
     ("7", 0, 0), ("8", 0, 1), ("9", 0, 2), ("/", 0, 3),
     ("4", 1, 0), ("5", 1, 1), ("6", 1, 2), ("*", 1, 3),
     ("1", 2, 0), ("2", 2, 1), ("3", 2, 2), ("-", 2, 3),
-    ("0", 3, 0), (".", 3, 1), ("C", 3, 2), ("+", 3, 3),
+    ("0", 3, 0), (".", 3, 1), ("+", 3, 3),
 ]
 
 # 목록을 하나씩 꺼내서 버튼으로 만들고 격자에 배치
 for text, row, col in buttons:
-    btn = tk.Button(button_frame, text=text, font=("Arial", 18))
+    btn = tk.Button(
+        button_frame, text=text, font=("Arial", 18),
+        command=lambda t=text: on_click(t),  # 눌렀을 때 그 버튼의 글자를 넣음
+    )
     btn.grid(row=row, column=col, sticky="nsew", padx=2, pady=2)
+
+# "C" 버튼은 아직 기능 없이 배치만 함
+clear_btn = tk.Button(button_frame, text="C", font=("Arial", 18))
+clear_btn.grid(row=3, column=2, sticky="nsew", padx=2, pady=2)
 
 # "=" 버튼은 맨 아래에 가로로 길게 배치
 equal_btn = tk.Button(button_frame, text="=", font=("Arial", 18))
