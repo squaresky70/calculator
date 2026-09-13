@@ -26,6 +26,11 @@ def on_equal():
         display.insert(tk.END, "오류")  # 계산이 안 되면 오류 표시
 
 
+# "C" 버튼을 누르면 화면을 전부 지우는 함수
+def on_clear():
+    display.delete(0, tk.END)
+
+
 # 버튼들을 담을 프레임(틀) 만들기
 button_frame = tk.Frame(window)
 button_frame.pack(fill="both", expand=True)
@@ -47,7 +52,7 @@ for text, row, col in buttons:
     btn.grid(row=row, column=col, sticky="nsew", padx=2, pady=2)
 
 # "C" 버튼은 아직 기능 없이 배치만 함
-clear_btn = tk.Button(button_frame, text="C", font=("Arial", 18))
+clear_btn = tk.Button(button_frame, text="C", font=("Arial", 18), command=on_clear)
 clear_btn.grid(row=3, column=2, sticky="nsew", padx=2, pady=2)
 
 # "=" 버튼은 맨 아래에 가로로 길게 배치
