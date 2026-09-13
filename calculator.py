@@ -15,6 +15,17 @@ def on_click(text):
     display.insert(tk.END, text)
 
 
+# "=" 버튼을 누르면 화면의 수식을 계산해서 결과를 보여주는 함수
+def on_equal():
+    try:
+        result = eval(display.get())  # 화면에 적힌 수식을 계산
+        display.delete(0, tk.END)  # 화면 지우기
+        display.insert(tk.END, str(result))  # 계산 결과 보여주기
+    except Exception:
+        display.delete(0, tk.END)  # 화면 지우기
+        display.insert(tk.END, "오류")  # 계산이 안 되면 오류 표시
+
+
 # 버튼들을 담을 프레임(틀) 만들기
 button_frame = tk.Frame(window)
 button_frame.pack(fill="both", expand=True)
@@ -40,7 +51,7 @@ clear_btn = tk.Button(button_frame, text="C", font=("Arial", 18))
 clear_btn.grid(row=3, column=2, sticky="nsew", padx=2, pady=2)
 
 # "=" 버튼은 맨 아래에 가로로 길게 배치
-equal_btn = tk.Button(button_frame, text="=", font=("Arial", 18))
+equal_btn = tk.Button(button_frame, text="=", font=("Arial", 18), command=on_equal)
 equal_btn.grid(row=4, column=0, columnspan=4, sticky="nsew", padx=2, pady=2)
 
 # 버튼 크기가 창에 맞춰 늘어나도록 행/열 비율 설정
